@@ -1,4 +1,23 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Archivos compilados de Java (nunca se suben, cada uno compila el suyo)
+*.class
+
+# Claves RSA del usuario (ni la privada aunque esté cifrada, ni la pública)
+publica.key
+privada.enc
+
+# Claves AES y Vectores de Inicialización de los archivos
+*.key
+*.iv
+
+# Archivos multimedia cifrados (Criptogramas)
+*.enc
+*.env
+
+# Archivos multimedia de prueba originales (para no saturar el peso del repositorio)
+*.mp4
+*.mp3
+*.jpg
+*.png
 
 # dependencies
 /node_modules
