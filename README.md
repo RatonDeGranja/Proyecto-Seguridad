@@ -18,8 +18,8 @@ Falta hacer la interfaz gráfica e integrarla en el codigo. Además hay que hace
 
 ## 📂 Estructura de Archivos
 
-*   `encrypt.java`: Módulo encargado de registrar al usuario (si es la primera vez), generar claves, cifrar el archivo multimedia y exportar el criptograma (`.enc`), la clave envuelta (`.key`) y el vector (`.iv`).
-*   `decrypt.java`: Módulo que autentica al usuario mediante su contraseña, recupera su clave privada, desenvuelve la clave AES del archivo y descifra el contenido multimedia devolviéndolo a su formato original.
+* `InterfazFX/src/main/java/com/example/interfazfx/encrypt.java`: Módulo encargado de registrar al usuario (si es la primera vez), generar claves, cifrar el archivo multimedia y exportar el criptograma (`.enc`), la clave envuelta (`.key`) y el vector (`.iv`).
+* `InterfazFX/src/main/java/com/example/interfazfx/decrypt.java`: Módulo que autentica al usuario mediante su contraseña, recupera su clave privada, desenvuelve la clave AES del archivo y descifra el contenido multimedia devolviéndolo a su formato original.
 
 ## 🚀 Instrucciones de Uso
 
