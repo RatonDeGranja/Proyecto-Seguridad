@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="511.0" prefWidth="565.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.interfazfx.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <TextField text="Usuario" />
+   <TextField text="Contraseña" />
+   <SplitPane dividerPositions="0.4942602040816326" prefHeight="52.0" prefWidth="525.0">
+     <items>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="4.0" prefWidth="255.0">
+            <children>
+               <Button layoutX="86.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Encriptar" />
+            </children>
+         </AnchorPane>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+               <Button alignment="CENTER" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Desencriptar" />
+            </children>
+         </AnchorPane>
+     </items>
+   </SplitPane>
+
+    <Label fx:id="welcomeText" />
+</VBox>
