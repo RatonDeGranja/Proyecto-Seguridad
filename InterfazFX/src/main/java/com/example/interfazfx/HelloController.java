@@ -16,7 +16,7 @@ public class HelloController {
     @FXML
     protected void onEncrypt() {
         try{
-            File archivo = new File("Casa5.jpg");
+            File archivo = new File("C:\\Users\\Diable\\Desktop\\Uni\\CyS\\Proyecto-Seguridad\\InterfazFX\\Casa5.jpg");
             String password = "pallico";
             encrypt.encryptFlow(archivo, password);
         } catch (Exception e) {
