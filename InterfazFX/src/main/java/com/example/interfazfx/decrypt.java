@@ -1,3 +1,5 @@
+package com.example.interfazfx;
+
 import java.io.*;
 import java.nio.file.*;
 import java.security.*;
@@ -32,7 +34,7 @@ public class decrypt {
         byte[] paquetePrivadaFinal = null;
 
         try (Connection conn = ConexionDB.conectar()) {
-            // 1. Cargamos la Clave AES envuelta usando la ruta exacta del archivo físico
+            // Cargamos la Clave AES envuelta usando la ruta exacta del archivo
             String sqlArchivo = "SELECT clave_aes_cifrada FROM archivos_multimedia WHERE ruta_cifrado = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sqlArchivo)) {
                 pstmt.setString(1, archivoCifrado.getAbsolutePath());
@@ -45,7 +47,7 @@ public class decrypt {
                 }
             }
 
-            // 2. Cargamos la clave privada cifrada del usuario
+            // Cargamos la clave privada cifrada del usuario
             String sqlRsa = "SELECT clave_privada_cifrada FROM credenciales_rsa ORDER BY id DESC LIMIT 1";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sqlRsa)) {
@@ -57,7 +59,7 @@ public class decrypt {
             }
         }
 
-        // 3. Reconstruimos la clave privada desenredándola con la contraseña del usuario
+        // Reconstruimos la clave privada desenredándola con la contraseña del usuario
         // Separamos los 12 bytes del IV y el resto que es la clave cifrada
         byte[] ivPrivada = Arrays.copyOfRange(paquetePrivadaFinal, 0, 12);
         byte[] encryptedPrivateKey = Arrays.copyOfRange(paquetePrivadaFinal, 12, paquetePrivadaFinal.length);
@@ -70,14 +72,14 @@ public class decrypt {
         byte[] decryptedPrivateKeyBytes = cipherPriv.doFinal(encryptedPrivateKey);
         PrivateKey clavePrivadaRecuperada = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(decryptedPrivateKeyBytes));
         
-        // 4. Desenvolvemos la clave AES del archivo multimedia
+        // Desenvolvemos la clave AES del archivo multimedia
         Cipher unwrapCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         unwrapCipher.init(Cipher.UNWRAP_MODE, clavePrivadaRecuperada);
         SecretKey claveAESRecuperada = (SecretKey) unwrapCipher.unwrap(claveAESProtegida, "AES", Cipher.SECRET_KEY);
         
         System.out.println("Clave AES desenvuelta con éxito.");
 
-        // 5. Desciframos el archivo físico (el IV se lee automáticamente dentro del método)
+        //  Desciframos el archivo físico (el IV se lee automáticamente dentro del método)
         System.out.println("Descifrando archivo... Generando -> " + archivoDescifrado.getName());
         decryptFile(algorithm, archivoCifrado, archivoDescifrado, claveAESRecuperada);
 

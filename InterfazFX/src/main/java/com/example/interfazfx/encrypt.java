@@ -27,7 +27,7 @@ public class encrypt {
     static void encryptFlow(File archivoOriginal, String passwordUsuario) throws Exception {
         String algorithm = "AES/GCM/NoPadding";
         
-        // 1. CIFRADO DEL ARCHIVO MULTIMEDIA
+        // Crear clave aleatoria con AES128
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(128);
         SecretKey key = keyGenerator.generateKey();
@@ -36,12 +36,17 @@ public class encrypt {
         new SecureRandom().nextBytes(ivBytes);
         GCMParameterSpec iv = new GCMParameterSpec(128, ivBytes);
 
-        File archivoCifrado = new File("c1.enc");
-        System.out.println("1. Cifrando " + archivoOriginal.getName() + " -> " + archivoCifrado.getName());
+        File carpeta = new File(System.getProperty("user.home"), "CarpetaSegura");
+        if (!carpeta.exists()) {
+            carpeta.mkdirs(); // Crea la carpeta si es la primera vez
+        }
+
+        File archivoCifrado = new File(carpeta, archivoOriginal.getName() + ".enc");
+        System.out.println("Cifrando " + archivoOriginal.getName() + " -> " + archivoCifrado.getName());
         
         encryptFile(algorithm, archivoOriginal, archivoCifrado, key, iv, ivBytes);
 
-        // 2. GESTIÓN DE USUARIO (COMPROBAR SI ES LA PRIMERA VEZ)
+        //GESTIÓN DE USUARIO (COMPROBAR SI ES LA PRIMERA VEZ)
         try (Connection conn = ConexionDB.conectar();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM credenciales_rsa")) {
